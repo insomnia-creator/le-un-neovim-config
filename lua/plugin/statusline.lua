@@ -63,7 +63,7 @@ require('staline').setup {
 	mode_colors = {
 		i = colors.nord14_gui,
 		n = colors.nord13_gui,
-		c = colors.nord11_gui,
+		c = colors.nord12_gui,
 		v = colors.nord15_gui,
 	},
     lsp_symbols = {
@@ -73,5 +73,9 @@ require('staline').setup {
 		true_colors = true,
 		line_column = " [%l/%L] :%c  ",
 		branch_symbol = " "
-	}
+	},
+  mode_icons = {
+    n = "" ,
+    c = " "
+  }
 }

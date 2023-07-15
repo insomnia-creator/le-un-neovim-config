@@ -51,6 +51,7 @@ opt.updatetime = 700        -- ms to wait for trigger an event
 -- Disable nvim intro
 opt.shortmess:append "sI"
 
+vim.cmd [[set t_Co=256]]
 -- Disable builtins plugins
 local disabled_built_ins = {
   "netrw",

@@ -48,12 +48,16 @@ return {
         'hrsh7th/cmp-buffer',
       }
   },
+  'saadparwaiz1/cmp_luasnip',
+  'L3MON4D3/LuaSnip',
+  'rafamadriz/friendly-snippets',
   'rcarriga/nvim-notify',
   'simrat39/rust-tools.nvim', --crab lang tooling
   'akinsho/flutter-tools.nvim', --best lang tooling
   'nanotee/sqls.nvim',
   'ray-x/web-tools.nvim', -- i will 10/10 never use it
   'davidgranstrom/nvim-markdown-preview', -- i will 0/10 never use it,
+  'brenoprata10/nvim-highlight-colors', --cool plugin
   {
     'nvim-treesitter/nvim-treesitter',
     build = ":TSUpdate",
@@ -100,7 +104,8 @@ return {
         "MunifTanjim/nui.nvim",
         "SmiteshP/nvim-navic"
     },
-    lazy = false
+    lazy = true,
+    event = "LspAttach"
   },
   'karb94/neoscroll.nvim',
   'andweeb/presence.nvim',
@@ -112,5 +117,6 @@ return {
     end
   },
   'MunifTanjim/prettier.nvim',
-  'nanozuki/tabby.nvim'
+  'nanozuki/tabby.nvim',
+  'lewis6991/gitsigns.nvim'
 }

@@ -1,5 +1,6 @@
 vim.o.completeopt = 'menuone,noselect'
 local cmp = require 'cmp'
+local luasnip = require 'luasnip'
 local icons = {
     Text = ' ',
     Method = ' ',
@@ -32,6 +33,15 @@ cmp.setup({
     completion = {
         -- completeopt = 'menu,menuone,noinsert',
     },
+    snippet = {
+      expand = function(args)
+        local status_ok, ls = pcall(require, 'luasnip')
+        if not status_ok then
+          return
+      end
+      ls.lsp_expand(args.body)
+      end
+    },
     formatting = {
         format = function(entry, vim_item)
             local kind = string.format('%s %s', icons[vim_item.kind], vim_item.kind)
@@ -52,6 +62,7 @@ cmp.setup({
     },
     sources = {
         {name = 'nvim_lsp'}, {name = 'nvim_lua'}, {name = 'path'},
+        {name = 'luasnip'},
         {name = 'calc'}
     },
     experimental = {
@@ -79,10 +90,11 @@ cmp.setup({
             behavior = cmp.ConfirmBehavior.Replace,
             select = false
         }),
-
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
             elseif has_words_before() then
                 cmp.complete()
             else
@@ -93,6 +105,8 @@ cmp.setup({
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
             else
                 fallback()
             end

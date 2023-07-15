@@ -79,7 +79,7 @@ function M.on_attach(client, bufnr)
 
   buf_map(bufnr, 'n', 'K', vim.lsp.buf.hover, opts)
   buf_map(bufnr, 'n', '<leader>ca', vim.lsp.buf.code_action, opts)
-  buf_map(bufnr, 'n', '<space>rn', vim.lsp.buf.rename.float, opts)
+  buf_map(bufnr, 'n', '<leader>r', vim.lsp.buf.rename.float, opts)
 
   -- Navigate diagnostics
   buf_map(bufnr, 'n', '[g', vim.diagnostic.goto_prev, opts)
@@ -111,7 +111,12 @@ function M.on_attach(client, bufnr)
     })
   end
 
-
+  --Navic
+  --
+  if(client.server_capabilities.documentSymbolProvider)
+  then
+        require('nvim-navic').attach(client, bufnr)
+  end
   -- Autoformatting
   local formatting_disabled_ls = {    }
   if client.supports_method 'textDocument/formatting' and not vim.tbl_contains(formatting_disabled_ls, client.name) then

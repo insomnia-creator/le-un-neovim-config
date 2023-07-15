@@ -11,7 +11,7 @@ require('telescope').setup {
         mappings = {
             i = {
                 ['<esc>'] = actions.close,
-
+                ['<CR>'] = actions.file_tab,
                 ['<c-j>'] = actions.move_selection_next,
                 ['<c-k>'] = actions.move_selection_previous,
 

@@ -52,7 +52,6 @@ local map = M.map
   map('n', '<C-Return>', '<CR><CR><C-o>k<Tab>')
   
   -- Reload configuration without restart nvim
-  map('n', '<leader>r', ':so %<CR>  :echo "Reloaded neovim configuration"<CR>')
   
   -- Fast saving with <leader> and s
   
@@ -65,6 +64,24 @@ local map = M.map
   map('n', "<leader>iw", ":TroubleToggle workspace_diagnostics <CR>", { silent = true })
   map('n', "<leader>if", ":TroubleToggle document_diagnostics <CR>", { silent = true })
 
+  --LuaSnip
+  local ls = require('luasnip')
+  map('i', "<C-s>", function ()
+    if ls.choice_active() then
+      ls.change_choice(1)
+    end
+  end, {silent = true}) 
+
+  map('i', "<C-a>", function ()
+    if ls.choice_active() then
+      ls.change_choice(-1)
+    end
+  end, {silent = true}) 
+  map('i', "<C-c>", function ()
+    if ls.choice_active() then
+            require "luasnip.extras.select_choice"()
+        end
+  end)
 
   --Navbuddy
   map('n', "<leader>v", ":lua require('nvim-navbuddy').open() <CR>", {silent = true})

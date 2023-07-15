@@ -1,5 +1,4 @@
 -- Some options need to be set right off the bat
-vim.opt.autochdir = true
 vim.g.mapleader = ','
 
 require 'lazyconf'
@@ -23,5 +22,7 @@ require 'plugin.greeter'
 require 'plugin.nordconf'
 require 'plugin.telescope'
 require 'plugin.navbuddy'
+require 'plugin.snippets'
 require 'plugin.volartakeovermode'
+require 'plugin.navic'
 vim.cmd.colorscheme "nord"
