@@ -39,12 +39,10 @@ require('telescope').setup {
         },
         find_files = {
             hidden = true,
-            find_command = {'rg', '--files', '--color', 'never', '--ignore-file',
-                            '/Users/it/.config' .. '/ripgrep/ignore'}
+            find_command = {'rg', '--files', vim.fn.getcwd() , '--color', 'never'}
         }
     }
 }
 
 require('telescope').load_extension 'notify'
-require('telescope').load_extension 'fzf'
 require('telescope').load_extension 'lazygit'

@@ -9,7 +9,7 @@ elseif dir == '.' then
     cd(false, vim.fn.getcwd())    
 else
     if not (vim.fn.isdirectory(dir) == 0) then
-
+       cd(false, dir)
     end
     -- else do nothing
 end
