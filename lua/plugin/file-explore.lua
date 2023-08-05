@@ -134,12 +134,12 @@ require('lir').setup {
     enable = true
   },
   mappings = {
-    ['<S-CR>'] = function(quit_lir)
+    ['<CR>'] = function(quit_lir)
         edit(quit_lir)
     end,
     ['<C-x>'] = actions.split,
     ['<C-v>'] = actions.vsplit,
-    ['<CR>'] = function (quit_lir)
+    ['<S-CR>'] = function (quit_lir)
        actions.tabedit(quit_lir)
   vim.defer_fn(function ()
     vim.cmd [[ cd %:h ]] 
