@@ -1,6 +1,7 @@
 -- Some options need to be set right off the bat
 vim.g.mapleader = ','
-
+vim.cmd [[ set autochdir ]]
+vim.cmd [[ autocmd BufEnter * silent! :lcd%:p:h ]]
 require 'lazyconf'
 require 'autocd'
 require 'options'

@@ -6,7 +6,7 @@ map('n', '<leader>sg', builtin.live_grep)
 
 require('telescope').setup {
     defaults = {
-        prompt_prefix = '   ',
+        prompt_prefix = '   ',
         selection_caret = '  ',
         mappings = {
             i = {
@@ -38,7 +38,7 @@ require('telescope').setup {
             cwd_only = true
         },
         find_files = {
-            hidden = true,
+            hidden =false,
             find_command = {'rg', '--files', vim.fn.getcwd() , '--color', 'never'}
         }
     }

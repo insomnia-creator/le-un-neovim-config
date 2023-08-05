@@ -1,8 +1,13 @@
 local lir = require 'lir'
+local utils = require("lir.utils")
+local lvim = require'lir.vim'
+local history = require('lir.history')
 local actions = require 'lir.actions'
 local mark_actions = require 'lir.mark.actions'
 local clipboard_actions = require 'lir.clipboard.actions'
 local Path = require 'plenary.path'
+
+local get_context = lvim.get_context
 
 local buf_map = require('plugin.maps').buf_map
 
@@ -98,18 +103,48 @@ local function new_file_tab()
   end
 end
 
+function edit(opts)
+  opts = opts or {}
+  local modified_split_command = vim.F.if_nil(opts.modified_split_command, "split")
+
+  local ctx = get_context()
+  local dir, file = ctx.dir, ctx:current_value()
+  if not file then
+    return
+  end
+
+  local keepalt = (utils.win_get_var("lir_is_float") and "") or "keepalt"
+
+  if utils.win_get_var("lir_is_float") and not ctx:is_dir_current() then
+    -- 閉じてから開く
+    actions.quit()
+  end
+
+  local cmd = (vim.api.nvim_buf_get_option(0, "modified") and modified_split_command) or "edit"
+  vim.cmd(string.format("%s %s %s", keepalt, cmd, vim.fn.fnameescape(dir .. file)))
+  history.add(dir, file)
+  vim.defer_fn(function ()
+    vim.cmd [[ cd %:h ]] 
+  end, 5)
+end
+
 require('lir').setup {
   show_hidden_files = true,
   devicons = {
     enable = true
   },
   mappings = {
-    ['<cr>'] = function(quit_lir)
-        actions.edit(quit_lir)
+    ['<S-CR>'] = function(quit_lir)
+        edit(quit_lir)
     end,
     ['<C-x>'] = actions.split,
     ['<C-v>'] = actions.vsplit,
-    ['<S-CR>'] = actions.tabedit,
+    ['<CR>'] = function (quit_lir)
+       actions.tabedit(quit_lir)
+  vim.defer_fn(function ()
+    vim.cmd [[ cd %:h ]] 
+  end, 5)
+    end,
     ['<esc>'] = actions.quit,
     ['<tab>'] = actions.up,
     ['q'] = actions.quit,
